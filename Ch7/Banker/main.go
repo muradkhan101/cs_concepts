@@ -51,9 +51,9 @@ func release(need *Matrix, allocation *Matrix, pid int, req *Vector, available *
 	newAvailable := *available.Add(req)
 	mutex.Unlock()
 	mutex.Lock()
-	available = &newAvailable
-	allocation = &newAllocation
-	need = &newNeed
+	*available = newAvailable
+	*allocation = newAllocation
+	*need = newNeed
 	mutex.Unlock()
 }
 
@@ -96,21 +96,25 @@ func request(need *Matrix, allocation *Matrix, pid int, req *Vector, available *
 		if isSafe(&newNeed, &newAllocation, newAvailable) {
 			fmt.Println("ALLOCATING RESOURCES FOR REQUEST:", pid)
 			mutex.Lock()
-			available = &newAvailable
-			allocation = &newAllocation
-			need = &newNeed
+			*available = newAvailable
+			*allocation = newAllocation
+			*need = newNeed
 			mutex.Unlock()
-
-			go func() {
-				time.Sleep(time.Millisecond * time.Duration(rand.Intn(1000)))
-				release(need, allocation, pid, req, available)
-			}()
 
 		} else {
 			fmt.Println("UNSAFE STATE:", newAvailable, newAllocation, newNeed, req)
 		}
 	} else {
 		fmt.Println("LIAR PROCESS!", pid, "REQUESTING MORE THAN IT NEEDS")
+	}
+
+	// Randomly release some resources
+	if rand.Float32() > 0.7 {
+		go func() {
+			time.Sleep(time.Millisecond * time.Duration(rand.Intn(1000)))
+			rel := RandomVector(allocation.Entries[pid])
+			release(need, allocation, pid, rel, available)
+		}()
 	}
 }
 
@@ -125,11 +129,11 @@ func main() {
 		Vector{[]int{1, 1, 2, 1, 0, 3}},
 		Vector{[]int{3, 2, 2, 3, 1, 7}}}, 6}
 	allocation := Matrix{[]Vector{
-		Vector{[]int{1, 0, 1, 0, 0, 2}},
-		Vector{[]int{0, 1, 0, 0, 0, 1}},
-		Vector{[]int{1, 0, 1, 0, 1, 0}},
-		Vector{[]int{0, 0, 1, 1, 0, 2}},
-		Vector{[]int{0, 1, 0, 1, 0, 1}}}, 6}
+		Vector{[]int{1, 1, 2, 1, 0, 2}},
+		Vector{[]int{3, 1, 1, 0, 0, 2}},
+		Vector{[]int{1, 0, 1, 0, 1, 3}},
+		Vector{[]int{0, 1, 1, 1, 0, 2}},
+		Vector{[]int{0, 1, 2, 1, 0, 1}}}, 6}
 	need := *max.Subtract(&allocation)
 	for {
 		time.Sleep(time.Millisecond * time.Duration(rand.Intn(1250)))
