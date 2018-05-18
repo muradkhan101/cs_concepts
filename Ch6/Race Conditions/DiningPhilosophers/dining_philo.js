@@ -26,12 +26,10 @@ class Philosopher {
     //     setTimeout(() => this.signalSleep(), 250);
     // }
     wake() {
-        console.log('Waking in 10:', this.id);
         setTimeout(() => this.signalWake(), 10);
     }
     sleep() {
         let rand = Math.floor( Math.random() * 1250 );
-        console.log('Sleeping in', rand, ':', this.id);
         setTimeout(() => this.signalSleep(), rand);
     }
     signal(action) {
@@ -44,8 +42,8 @@ class PhilosopherController {
     constructor(numP) {
         // numP = 4;
         this.philosophers = Array.apply(null, { length: numP }).map( (_, i) => new Philosopher(i, this) );
-        this.eating = [Array.apply(null, { length: numP }).map(Boolean)];
-        this.forks = Array.apply(null, { length: numP + 1 }).map(() => true);
+        this.eating = Array.apply(null, { length: numP }).map(Boolean);
+        this.forks = Array.apply(null, { length: numP  }).map(() => true);
     }
     getBoundedIndex(num) { return num % this.philosophers.length}
     getStatus(id) {
@@ -79,7 +77,7 @@ class PhilosopherController {
         }
     }
     philosopherSleeps(id) {
-        console.log(id);
+        console.log('sleeping', id);
         this.forks[id] = true;
         this.forks[this.getBoundedIndex(id + 1)] = true;
         this.eating[id] = false;
@@ -93,5 +91,5 @@ class PhilosopherController {
     }
 }
 
-let pc = new PhilosopherController(3)
+let pc = new PhilosopherController(5)
 pc.start();
