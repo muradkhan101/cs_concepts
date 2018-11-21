@@ -1,2 +1,2 @@
 # os_concepts
-Implementations of practice exercises from the Operating Systems Concepts textbook 
+Implementations of data structures and practice exercises from the Operating Systems Concepts textbook
