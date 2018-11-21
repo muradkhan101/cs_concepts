@@ -24,17 +24,19 @@ func (node *BSTNode) getChildCount() int {
 	}
 	return count
 }
-func (node *BSTNode) add(child *BSTNode) {
+
+// Add nodo to BST
+func (node *BSTNode) Add(child *BSTNode) {
 	if child.Value < node.Value {
 		if node.hasLeftChild() {
-			node.Left.add(child)
+			node.Left.Add(child)
 		} else {
 			// child.Parent = node
 			node.Left = child
 		}
 	} else {
 		if node.hasRightChild() {
-			node.Right.add(child)
+			node.Right.Add(child)
 		} else {
 			// child.Parent = node
 			node.Right = child
@@ -42,7 +44,8 @@ func (node *BSTNode) add(child *BSTNode) {
 	}
 }
 
-func (node *BSTNode) remove(child int, parent *BSTNode) bool {
+// Remove Node from BST
+func (node *BSTNode) Remove(child int, parent *BSTNode) bool {
 	if node.Value == child {
 		childCount := node.getChildCount()
 		if childCount == 0 {
@@ -71,17 +74,17 @@ func (node *BSTNode) remove(child int, parent *BSTNode) bool {
 				minNode = minNode.Left
 			}
 			node.Value = minNode.Value
-			return node.Left.remove(minNode.Value, node)
+			return node.Left.Remove(minNode.Value, node)
 		}
 	} else if child < node.Value {
 		if node.hasLeftChild() {
-			return node.Left.remove(child, node)
+			return node.Left.Remove(child, node)
 		} else {
 			return false
 		}
 	} else {
 		if node.hasRightChild() {
-			return node.Right.remove(child, node)
+			return node.Right.Remove(child, node)
 		} else {
 			return false
 		}
