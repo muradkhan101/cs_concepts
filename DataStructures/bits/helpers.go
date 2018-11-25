@@ -32,3 +32,8 @@ func SetBit(num int, pos uint) int {
 	mask := 1 << pos
 	return num | mask
 }
+
+// Xor calculates exclusive or between two numbers
+func Xor(n1, n2 int) int {
+	return ^((n1 & n2) | (^n1 & ^n1))
+}
