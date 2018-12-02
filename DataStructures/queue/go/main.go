@@ -5,7 +5,8 @@ import (
 )
 
 func main() {
-	q := Queue{}
+	q := ArrayQueue{}
+	q.Init(20)
 	q.Enqueue(4)
 	q.Enqueue(3)
 	q.Enqueue(11)
