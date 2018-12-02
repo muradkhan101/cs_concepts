@@ -6,7 +6,7 @@ import (
 
 func main() {
 	q := ArrayQueue{}
-	q.Init(20)
+	q.Init(4)
 	q.Enqueue(4)
 	q.Enqueue(3)
 	q.Enqueue(11)
