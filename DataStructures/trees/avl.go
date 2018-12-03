@@ -75,12 +75,12 @@ func (node *AVLNode) Remove(value int) bool {
 				node.Parent.updateBalance()
 			}
 		case 2:
-			minNode := node.Left
+			minNode := node.Right
 			for minNode.Left != nil {
 				minNode = minNode.Left
 			}
 			node.Value = minNode.Value
-			node.Left.Remove(value)
+			node.Right.Remove(value)
 
 		}
 	} else if value < node.Value {

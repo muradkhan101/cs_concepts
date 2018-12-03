@@ -1,11 +1,24 @@
 package main
 
+import "fmt"
+
 // BSTNode is a Binary Search Tree node
 type BSTNode struct {
 	Value int
 	// Parent *BSTNode
 	Left  *BSTNode
 	Right *BSTNode
+}
+
+// InOrder traverses tree
+func InOrder(t *BSTNode) {
+	if t.Left != nil {
+		InOrder(t.Left)
+	}
+	fmt.Println(t.Value)
+	if t.Right != nil {
+		InOrder(t.Right)
+	}
 }
 
 func (node *BSTNode) hasLeftChild() bool {
@@ -69,12 +82,12 @@ func (node *BSTNode) Remove(child int, parent *BSTNode) bool {
 			}
 			return true
 		} else {
-			minNode := node.Left
+			minNode := node.Right
 			for minNode.hasLeftChild() {
 				minNode = minNode.Left
 			}
 			node.Value = minNode.Value
-			return node.Left.Remove(minNode.Value, node)
+			return node.Right.Remove(minNode.Value, node)
 		}
 	} else if child < node.Value {
 		if node.hasLeftChild() {
