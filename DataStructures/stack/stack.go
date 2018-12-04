@@ -1,11 +1,5 @@
 package main
 
-// Node in Stack
-type Node struct {
-	Value int
-	Next  *Node
-}
-
 // Stack typical
 type Stack struct {
 	Top *Node
