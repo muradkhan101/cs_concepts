@@ -5,16 +5,24 @@ import (
 )
 
 func main() {
-	s := MinStack{}
-	s.Push(11)
-	fmt.Println(s.MinValue())
+	// s := ArrayStack{}
+	// s.Push(11)
+	// fmt.Println(s.Pop())
 
-	s.Push(12)
-	s.Push(42)
-	fmt.Println(s.MinValue())
+	// s.Push(12)
+	// s.Push(42)
+	// fmt.Println(s.Pop())
 
-	s.Push(1)
-	fmt.Println(s.MinValue())
-	s.Pop()
-	fmt.Println(s.MinValue())
+	// s.Push(1)
+	// fmt.Println(s.Pop())
+	// fmt.Println(s.Pop())
+	q := QueueWithStacks{}
+	q.Enqueue(4)
+	q.Enqueue(3)
+	q.Enqueue(11)
+	q.Enqueue(22)
+	fmt.Print("Dequeing: ")
+	fmt.Println(q.Dequeue())
+	fmt.Print("Dequeing: ")
+	fmt.Println(q.Dequeue())
 }
