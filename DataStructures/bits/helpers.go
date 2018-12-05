@@ -37,3 +37,21 @@ func SetBit(num int, pos uint) int {
 func Xor(n1, n2 int) int {
 	return ^((n1 & n2) | (^n1 & ^n1))
 }
+
+// BitOn sets bit to on position
+func BitOn(num int, i uint) int {
+	return num | (1 << i)
+}
+
+// BitOff turns off given bit
+func BitOff(num int, i uint) int {
+	return num & ^(1 << i)
+}
+
+// ToggleBit toggles given bit
+func ToggleBit(num int, i uint) int {
+	if GetBit(num, i) == 1 {
+		return BitOff(num, i)
+	}
+	return BitOn(num, i)
+}
