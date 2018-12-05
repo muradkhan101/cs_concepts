@@ -1,9 +1,5 @@
 package main
 
-import (
-	"math"
-)
-
 // AVLNode is a node in a self-balanced AVL tree
 type AVLNode struct {
 	Value   int
@@ -96,6 +92,7 @@ func (node *AVLNode) Remove(value int) bool {
 			return false
 		}
 	}
+	return false
 }
 func (node *AVLNode) updateBalance() {
 	if node.balance > 1 || node.balance < -1 {
@@ -132,8 +129,8 @@ func (node *AVLNode) rotateLeft() {
 	}
 	newRoot.Left = node
 
-	node.balance = node.balance + 1 - math.Min(newRoot.balance, 0)
-	newRoot.balance = newRoot.balance + 1 + math.Max(node.balance, 0)
+	node.balance = node.balance + 1 - min(newRoot.balance, 0)
+	newRoot.balance = newRoot.balance + 1 + max(node.balance, 0)
 }
 
 func (node *AVLNode) rotateRight() {
@@ -153,8 +150,8 @@ func (node *AVLNode) rotateRight() {
 	}
 	newRoot.Right = node
 
-	node.balance = node.balance + 1 - math.Min(newRoot.balance, 0)
-	newRoot.balance = newRoot.balance + 1 + math.Max(node.balance, 0)
+	node.balance = node.balance + 1 - min(newRoot.balance, 0)
+	newRoot.balance = newRoot.balance + 1 + max(node.balance, 0)
 }
 
 func (node *AVLNode) rebalance() {
@@ -169,4 +166,17 @@ func (node *AVLNode) rebalance() {
 		}
 		node.rotateRight()
 	}
+}
+
+func min(a, b int) int {
+	if a > b {
+		return b
+	}
+	return a
+}
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
 }
