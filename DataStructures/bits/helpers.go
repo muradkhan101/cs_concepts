@@ -55,3 +55,13 @@ func ToggleBit(num int, i uint) int {
 	}
 	return BitOn(num, i)
 }
+
+// Substring inserts num2 as a substring to num1 at the specified range
+func Substring(num1, num2 int, i, j uint) int {
+	leftMask := ^0 - ((1 << j) - 1)
+	rightMask := (1 << i) - 1
+
+	combined := leftMask | rightMask
+
+	return (num1 & combined) | (num2 << i)
+}
