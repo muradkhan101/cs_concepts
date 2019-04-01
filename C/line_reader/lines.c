@@ -53,7 +53,6 @@ int main() {
     free(line);
     line_length = read_line(file_d, &line);
   }
-  free(line);
   close(file_d);
   return 0;
 }
